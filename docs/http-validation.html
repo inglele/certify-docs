@@ -29,6 +29,29 @@ the <a href="https://api.certifytheweb.com">https://api.certifytheweb.com</a> se
 Check that test test configcheck file has been created at <em>wwwwroot</em>\inetpub*yourwebsite*.well-known\acme-challenge</p>
 <p>if not, check your folder permissions allow this folder/files to be created. If necessary, check the website root path is correctly mapped.</p>
 <p>2 - Check you can access http://<em>yourdomain</em>/.well-known/acme-challenge/configcheck</p>
-<p>If the file exists on disk but you get a 404 error accessing the file then you have a problem with mapping extensionless files to static content.</p>
-<p>If you get an error 500, the web.config  probably has a directive your server can't support. If the web.config has a <code>&lt;clear/&gt;</code> directive, try removing it.</p>
+<p>If the file exists on disk but you get an error <strong>404</strong> (not found) accessing the file then you have a problem with mapping extensionless files to static content.</p>
+<p>If you get an error <strong>500</strong> (server error), the web.config  probably has a directive your server can't support. If the web.config has a <code>&lt;clear/&gt;</code> directive, try removing it.</p>
+<p>If you get an error <strong>403</strong> (access denied), your web application is denying access to the challenge response file, probably because the parent web application requires authentication. Your web.config in the /acme-challenge/ folder should include the following directive:</p>
+<pre><code class="hljs css xml">    <span class="hljs-tag">&lt;<span class="hljs-name">system.web</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">authorization</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">allow</span> <span class="hljs-attr">users</span>=<span class="hljs-string">"*"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">authorization</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">system.web</span>&gt;</span>
+</code></pre>
+<p>In addition you may need to modify the web.config of the parent web application to allow access to the /.well-known/acme-challenge folder:</p>
+<pre><code class="hljs css xml"><span class="hljs-tag">&lt;<span class="hljs-name">configuration</span>&gt;</span>
+...
+...
+  <span class="hljs-tag">&lt;<span class="hljs-name">location</span> <span class="hljs-attr">path</span>=<span class="hljs-string">".well-known/acme-challenge"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">system.web</span>&gt;</span>
+       <span class="hljs-tag">&lt;<span class="hljs-name">authorization</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">allow</span> <span class="hljs-attr">users</span>=<span class="hljs-string">"*"</span>/&gt;</span>
+       <span class="hljs-tag">&lt;/<span class="hljs-name">authorization</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">system.web</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">location</span>&gt;</span>
+ ...
+ ...
+<span class="hljs-tag">&lt;/<span class="hljs-name">configuration</span>&gt;</span>
+</code></pre>
+<p>The use of a web.config file to control web application configuration requires <code>Asp.Net</code> to be installed alongside IIS.</p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="dns-validation.html">← About DNS Validation (dns-01)</a><a class="docs-next button" href="script-hooks.html">Scripting Hooks →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#why-use-http-validation">Why use HTTP Validation?</a></li><li><a href="#how-to-use-http-validation-on-windows">How to use HTTP Validation (on Windows)</a></li><li><a href="#common-issues">Common Issues</a><ul class="toc-headings"><li><a href="#error-500-404-or-403-or-other-http-error-code">Error 500, 404 or 403 (or other http error code)</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/icon.svg" alt="Certify The Web - Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/intro.html">Getting Started (or other categories)</a><a href="/docs/en/FAQ.html">FAQs</a></div><div><h5>Community</h5><a href="https://community.certifytheweb.com" target="_blank" rel="noreferrer noopener">Discuss</a><a href="https://twitter.com/certifytheweb/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://github.com/webprofusion/certify">GitHub</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2018 Webprofusion Pty Ltd</section></footer></div></body></html>
