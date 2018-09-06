@@ -43,12 +43,12 @@
 <span class="hljs-variable">$result</span>.ManagedItem.RequestConfig.WebsiteRootPath   <span class="hljs-comment"># ex: "C:\inetpub\wwwroot"</span>
 
 <span class="hljs-comment"># the path to the created/renewed certificate PFX file</span>
-<span class="hljs-variable">$result</span>.MangagedItem.CertificatePath   <span class="hljs-comment"># ex: "C:\ProgramData\ACMESharp\sysVault\99-ASSET\cert_ident8cf8bd9c-all.pfx"</span>
+<span class="hljs-variable">$result</span>.ManagedItem.CertificatePath   <span class="hljs-comment"># ex: "C:\ProgramData\ACMESharp\sysVault\99-ASSET\cert_ident8cf8bd9c-all.pfx"</span>
 
 <span class="hljs-comment"># the certificate thumbprint</span>
 <span class="hljs-variable">$result</span>.ManagedItem.CertificateThumbprintHash <span class="hljs-comment"># ex: "78b1080a1bf5e7fc0bbb0c0614fc4a18932db5f9"</span>
 
-<span class="hljs-comment"># set to $true in a pre-request hook to prevent the certificate from </span>
+<span class="hljs-comment"># set to $true in a pre-request hook to prevent the certificate from</span>
 <span class="hljs-comment"># being requested (has no effect in post-request hooks)</span>
 <span class="hljs-variable">$result</span>.Abort = <span class="hljs-literal">$false</span>
 </code></pre>
@@ -77,13 +77,13 @@
 <pre><code class="hljs css languages- PowerShell"><span class="hljs-keyword">param</span>(<span class="hljs-variable">$result</span>)
 <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$result</span>.IsSuccess) {
    <span class="hljs-variable">$EmailFrom</span> = <span class="hljs-string">"username@gmail.com"</span>
-   <span class="hljs-variable">$EmailTo</span> = <span class="hljs-string">"username@gmail.com"</span> 
+   <span class="hljs-variable">$EmailTo</span> = <span class="hljs-string">"username@gmail.com"</span>
    <span class="hljs-variable">$Subject</span> = <span class="hljs-string">"Cert Request Failed: "</span> + <span class="hljs-variable">$result</span>.ManagedItem.RequestConfig.PrimaryDomain
-   <span class="hljs-variable">$Body</span> = <span class="hljs-string">"Error: "</span> + <span class="hljs-variable">$result</span>.Message 
-   <span class="hljs-variable">$SMTPServer</span> = <span class="hljs-string">"smtp.gmail.com"</span> 
-   <span class="hljs-variable">$SMTPClient</span> = <span class="hljs-built_in">New-Object</span> Net.Mail.SmtpClient(<span class="hljs-variable">$SmtpServer</span>, <span class="hljs-number">587</span>) 
-   <span class="hljs-variable">$SMTPClient</span>.EnableSsl = <span class="hljs-literal">$true</span> 
-   <span class="hljs-variable">$SMTPClient</span>.Credentials = <span class="hljs-built_in">New-Object</span> System.Net.NetworkCredential(<span class="hljs-string">"username@gmail.com"</span>, <span class="hljs-string">"password"</span>); 
+   <span class="hljs-variable">$Body</span> = <span class="hljs-string">"Error: "</span> + <span class="hljs-variable">$result</span>.Message
+   <span class="hljs-variable">$SMTPServer</span> = <span class="hljs-string">"smtp.gmail.com"</span>
+   <span class="hljs-variable">$SMTPClient</span> = <span class="hljs-built_in">New-Object</span> Net.Mail.SmtpClient(<span class="hljs-variable">$SmtpServer</span>, <span class="hljs-number">587</span>)
+   <span class="hljs-variable">$SMTPClient</span>.EnableSsl = <span class="hljs-literal">$true</span>
+   <span class="hljs-variable">$SMTPClient</span>.Credentials = <span class="hljs-built_in">New-Object</span> System.Net.NetworkCredential(<span class="hljs-string">"username@gmail.com"</span>, <span class="hljs-string">"password"</span>);
    <span class="hljs-variable">$SMTPClient</span>.Send(<span class="hljs-variable">$EmailFrom</span>, <span class="hljs-variable">$EmailTo</span>, <span class="hljs-variable">$Subject</span>, <span class="hljs-variable">$Body</span>)
    <span class="hljs-built_in">write-output</span> <span class="hljs-string">"Sent notification email"</span>
 }
@@ -113,7 +113,7 @@ Enable-ExchangeCertificate -Thumbprint <span class="hljs-variable">$result</span
 <h3><a class="anchor" aria-hidden="true" id="example-update-remote-desktop-role-certificates"></a><a href="#example-update-remote-desktop-role-certificates" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example: update Remote Desktop Role Certificates</h3>
 <p>(switches to 64-bit powershell to import the 64-bit RemoteDesktop module)</p>
 <pre><code class="hljs css languages- PowerShell"><span class="hljs-keyword">param</span>(<span class="hljs-variable">$result</span>)
-<span class="hljs-built_in">set-alias</span> ps64 <span class="hljs-string">"<span class="hljs-variable">$env:windir</span>\sysnative\WindowsPowerShell\v1.0\powershell.exe"</span> 
+<span class="hljs-built_in">set-alias</span> ps64 <span class="hljs-string">"<span class="hljs-variable">$env:windir</span>\sysnative\WindowsPowerShell\v1.0\powershell.exe"</span>
 ps64 -args <span class="hljs-variable">$result</span> -command {
    <span class="hljs-variable">$result</span> = <span class="hljs-variable">$args</span>[<span class="hljs-number">0</span>]
    <span class="hljs-variable">$pfxpath</span> = <span class="hljs-variable">$result</span>.ManagedItem.CertificatePath
@@ -133,7 +133,7 @@ ps64 -args <span class="hljs-variable">$result</span> -command {
 <h3><a class="anchor" aria-hidden="true" id="using-64-bit-modules"></a><a href="#using-64-bit-modules" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using 64-bit modules</h3>
 <p>If you attempt to import a module with <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/import-module?view=powershell-5.1"><code>Import-Module</code></a> that does not run in 32-bit mode (i.e. RemoteDesktop), you may receive an error like <code>&quot;Import-Module : The specified module 'RemoteDesktop' was not loaded because no valid module file was found in any module directory.&quot;</code>. To load a 64-bit module you can use this snippet to pass the <code>$result</code> object to a script running in 64-bit powershell:</p>
 <pre><code class="hljs css languages- powershell"><span class="hljs-keyword">param</span>(<span class="hljs-variable">$result</span>)
-<span class="hljs-built_in">set-alias</span> ps64 <span class="hljs-string">"<span class="hljs-variable">$env:windir</span>\sysnative\WindowsPowerShell\v1.0\powershell.exe"</span> 
+<span class="hljs-built_in">set-alias</span> ps64 <span class="hljs-string">"<span class="hljs-variable">$env:windir</span>\sysnative\WindowsPowerShell\v1.0\powershell.exe"</span>
 ps64 -args <span class="hljs-variable">$result</span> -command {
    <span class="hljs-variable">$result</span> = <span class="hljs-variable">$args</span>[<span class="hljs-number">0</span>]
    <span class="hljs-built_in">write-output</span> <span class="hljs-variable">$result</span>.IsSuccess
